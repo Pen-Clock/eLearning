@@ -1,53 +1,51 @@
-import Link from "next/link";
+import type { Metadata } from "next"
+import Link from "next/link"
+import { Button } from "~/components/ui/button"
+import CourseGrid from "~/components/course-grid"
+import DashboardHeader from "~/components/dashboard-header"
+import { courseData } from "~/lib/course-data"
 
-import { LatestPost } from "~/app/_components/post";
-import { api, HydrateClient } from "~/trpc/server";
+export const metadata: Metadata = {
+  title: "Learning Dashboard",
+  description: "Modern e-learning platform with interactive courses and quizzes",
+}
 
-export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-
-  void api.post.getLatest.prefetch();
-
+export default function Dashboard() {
   return (
-    <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello ? hello.greeting : "Loading tRPC query..."}
+    <div className="min-h-screen bg-background">
+      <DashboardHeader />
+      <main className="container mx-auto py-6 px-4 md:px-6">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">My Learning Dashboard</h1>
+            <p className="text-muted-foreground mt-1">
+              Continue learning or explore new courses to enhance your skills
             </p>
           </div>
+          <Button asChild>
+            <Link href="/explore">Explore All Courses</Link>
+          </Button>
+        </div>
 
-          <LatestPost />
+        <div className="space-y-8">
+          <section>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-2xl font-semibold tracking-tight">Continue Learning</h2>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/in-progress">View All</Link>
+              </Button>
+            </div>
+            <CourseGrid courses={courseData.filter((course) => course.progress > 0).slice(0, 3)} viewType="continue" />
+          </section>
+
+          <section>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-2xl font-semibold tracking-tight">All Courses</h2>
+            </div>
+            <CourseGrid courses={courseData} viewType="all" />
+          </section>
         </div>
       </main>
-    </HydrateClient>
-  );
+    </div>
+  )
 }
