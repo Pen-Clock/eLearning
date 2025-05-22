@@ -3,7 +3,7 @@ export const courseData = [
     id: "web-dev-fundamentals",
     title: "Web Development Fundamentals",
     description: "Learn the fundamentals of web development including HTML, CSS, and JavaScript.",
-    thumbnail: "/placeholder.svg?height=400&width=600",
+    thumbnail: "https://rw46865x0j.ufs.sh/f/2Qpnhu1TY6sVJzjiq0esg1Yxp6TvjwEU30GrB2yJkdA7IRme?height=400&width=600",
     category: "Web Development",
     duration: "8 weeks",
     level: "Beginner",
@@ -12,7 +12,7 @@ export const courseData = [
       {
         id: 1,
         title: "Getting Started with HTML",
-        videoUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+        videoUrl: "https://www.youtube.com/embed/HD13eq_Pmp8?si=lGhkl2mDYw80qCNW",
         textContent: `
           <h2>HTML Basics</h2>
           <p>HTML (HyperText Markup Language) is the standard markup language for documents designed to be displayed in a web browser. It defines the structure of web content.</p>
@@ -140,7 +140,7 @@ export const courseData = [
     id: "javascript-essentials",
     title: "JavaScript Essentials",
     description: "Master the essential concepts of JavaScript programming language.",
-    thumbnail: "/placeholder.svg?height=400&width=600",
+    thumbnail: "https://rw46865x0j.ufs.sh/f/2Qpnhu1TY6sVlnY3cRltaEOsvfFQcBZHdGtmV86KP73kSiUr?height=400&width=600",
     category: "Programming",
     duration: "6 weeks",
     level: "Intermediate",
@@ -280,7 +280,7 @@ export const courseData = [
     id: "react-fundamentals",
     title: "React Fundamentals",
     description: "Learn the fundamentals of React, a JavaScript library for building user interfaces.",
-    thumbnail: "/placeholder.svg?height=400&width=600",
+    thumbnail: "https://rw46865x0j.ufs.sh/f/2Qpnhu1TY6sV7rZYAoQPlVktDLRxCe1QZpXIWvjyJ5F02Pob?height=400&width=600",
     category: "Web Development",
     duration: "10 weeks",
     level: "Intermediate",
@@ -422,7 +422,7 @@ export const courseData = [
     id: "python-for-data-science",
     title: "Python for Data Science",
     description: "Learn Python programming for data analysis and visualization.",
-    thumbnail: "/placeholder.svg?height=400&width=600",
+    thumbnail: "https://rw46865x0j.ufs.sh/f/2Qpnhu1TY6sVPdrmU60BdO39CRQ2vHeZlkS7qEh0nuFImoxg?height=400&width=600",
     category: "Data Science",
     duration: "12 weeks",
     level: "Beginner",
@@ -569,7 +569,7 @@ export const courseData = [
     id: "ui-ux-design-principles",
     title: "UI/UX Design Principles",
     description: "Learn the fundamental principles of user interface and user experience design.",
-    thumbnail: "/placeholder.svg?height=400&width=600",
+    thumbnail: "https://rw46865x0j.ufs.sh/f/2Qpnhu1TY6sVBm0Lokbc5dshzV01JKfeWU7lRYCkroqQjgyw?height=400&width=600",
     category: "Design",
     duration: "8 weeks",
     level: "Beginner",
@@ -715,7 +715,7 @@ export const courseData = [
     id: "mobile-app-development",
     title: "Mobile App Development",
     description: "Learn to build mobile applications for iOS and Android platforms.",
-    thumbnail: "/placeholder.svg?height=400&width=600",
+    thumbnail: "https://rw46865x0j.ufs.sh/f/2Qpnhu1TY6sVbsT0UvaH7vhqOmbfFX8N6jQW0cTCisdu1Iy5?height=400&width=600",
     category: "Mobile Development",
     duration: "14 weeks",
     level: "Intermediate",
@@ -877,4 +877,515 @@ export const courseData = [
       },
     ],
   },
+  {
+    id: "java-programming-fundamentals",
+    title: "Java Programming Fundamentals",
+    description: "A comprehensive course to learn the basics of Java programming, from variables to object-oriented concepts.",
+    thumbnail: "https://rw46865x0j.ufs.sh/f/2Qpnhu1TY6sVes6eA2TC68UE02oQFbvAOwTyPp1ix35JBu4k?height=400&width=600", // Placeholder thumbnail URL
+    category: "Programming",
+    duration: "10 weeks",
+    level: "Beginner",
+    progress: 0,
+    modules: [
+      {
+        id: 1,
+        title: "Introduction to Java and Setting Up Your Environment",
+        videoUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4", // Placeholder video URL
+        textContent: `
+          <h2>Introduction to Java</h2>
+          <p>Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It's a popular choice for enterprise-level applications, Android development, and more.</p>
+
+          <h3>What is Java?</h3>
+          <p>Java is known for its "Write Once, Run Anywhere" (WORA) principle, meaning that compiled Java code can run on all platforms that support Java without the need for recompilation.</p>
+
+          <h3>Key Features of Java</h3>
+          <ul>
+            <li>Object-Oriented: Based on the concept of objects.</li>
+            <li>Platform Independent: Runs on various operating systems.</li>
+            <li>Simple: Relatively easy to learn compared to some other languages.</li>
+            <li>Secure: Designed with security in mind.</li>
+            <li>Robust: Has strong memory management and error handling.</li>
+            <li>Multithreaded: Can perform multiple tasks concurrently.</li>
+          </ul>
+
+          <h3>Setting Up Your Development Environment</h3>
+          <p>To start programming in Java, you need a Java Development Kit (JDK) and an Integrated Development Environment (IDE).</p>
+
+          <h4>JDK Installation</h4>
+          <p>Download and install the latest JDK from Oracle's website or use an open-source alternative like OpenJDK. The JDK includes the Java Runtime Environment (JRE) and development tools like the compiler (<code>javac</code>).</p>
+
+          <h4>IDE Installation</h4>
+          <p>Popular Java IDEs include:</p>
+          <ul>
+            <li>Eclipse</li>
+            <li>IntelliJ IDEA (Community or Ultimate Edition)</li>
+            <li>NetBeans</li>
+          </ul>
+          <p>Install an IDE of your choice. These provide features like code editing, debugging, and project management.</p>
+        `,
+        quiz: {
+          title: "Introduction to Java Quiz",
+          questions: [
+            {
+              id: 1,
+              question: "What is the main principle of Java?",
+              options: ["Write Many, Run Many", "Write Once, Run Anywhere", "Write Once, Compile Once", "Write Anywhere, Run Anywhere"],
+              correctAnswer: 1,
+            },
+            {
+              id: 2,
+              question: "Which of the following is NOT a key feature of Java?",
+              options: ["Platform Dependent", "Object-Oriented", "Secure", "Multithreaded"],
+              correctAnswer: 0,
+            },
+            {
+              id: 3,
+              question: "What does JDK stand for?",
+              options: ["Java Development Kit", "Java Deployment Kit", "Java Design Kit", "Java Data Kit"],
+              correctAnswer: 0,
+            },
+            {
+              id: 4,
+              question: "Which of these is a popular Java IDE?",
+              options: ["Visual Studio Code", "Sublime Text", "Eclipse", "Atom"],
+              correctAnswer: 2,
+            },
+            {
+              id: 5,
+              question: "What tool is used to compile Java code?",
+              options: ["java", "javac", "jre", "jdk"],
+              correctAnswer: 1,
+            },
+          ],
+        },
+      },
+      {
+        id: 2,
+        title: "Variables, Data Types, and Operators",
+        videoUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4", // Placeholder video URL
+        textContent: `
+          <h2>Variables and Data Types</h2>
+          <p>In Java, variables are used to store data. Each variable has a data type that determines the type of data it can hold and the operations that can be performed on it.</p>
+
+          <h3>Data Types</h3>
+          <p>Java has two main categories of data types:</p>
+          <ul>
+            <li><strong>Primitive Data Types:</strong>
+              <ul>
+                <li><code>byte</code>: 8-bit integer</li>
+                <li><code>short</code>: 16-bit integer</li>
+                <li><code>int</code>: 32-bit integer</li>
+                <li><code>long</code>: 64-bit integer</li>
+                <li><code>float</code>: 32-bit floating-point</li>
+                <li><code>double</code>: 64-bit floating-point</li>
+                <li><code>boolean</code>: true or false</li>
+                <li><code>char</code>: 16-bit Unicode character</li>
+              </ul>
+            </li>
+            <li><strong>Non-Primitive (Reference) Data Types:</strong>
+              <ul>
+                <li><code>String</code>: Represents sequences of characters</li>
+                <li>Arrays: Collections of elements of the same type</li>
+                <li>Classes, Interfaces, etc.: User-defined types</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Declaring and Initializing Variables</h3>
+          <p>To declare a variable, you specify its data type followed by the variable name:</p>
+          <pre><code class="language-java">int age;</code></pre>
+          <p>You can initialize a variable when you declare it:</p>
+          <pre><code class="language-java">int age = 30;</code></pre>
+
+          <h3>Operators</h3>
+          <p>Operators are symbols that perform operations on variables and values. Some common operators include:</p>
+          <ul>
+            <li><strong>Arithmetic Operators:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code></li>
+            <li><strong>Assignment Operators:</strong> <code>=</code>, <code>+=</code>, <code>-=</code>, etc.</li>
+            <li><strong>Comparison Operators:</strong> <code>==</code>, <code>!=</code>, <code>></code>, <code><</code>, <code>>=</code>, <code><=</code></li>
+            <li><strong>Logical Operators:</strong> <code>&&</code> (AND), <code>||</code> (OR), <code>!</code> (NOT)</li>
+            <li><strong>Increment/Decrement Operators:</strong> <code>++</code>, <code>--</code></li>
+          </ul>
+        `,
+        quiz: {
+          title: "Variables, Data Types, and Operators Quiz",
+          questions: [
+            {
+              id: 1,
+              question: "Which of the following is a primitive data type in Java?",
+              options: ["String", "Array", "int", "Class"],
+              correctAnswer: 2,
+            },
+            {
+              id: 2,
+              question: "What is the correct way to declare an integer variable named 'count'?",
+              options: ["count int;", "int count;", "variable count int;", "declare int count;"],
+              correctAnswer: 1,
+            },
+            {
+              id: 3,
+              question: "Which operator is used for checking equality in Java?",
+              options: ["=", "==", "!=", "=>"],
+              correctAnswer: 1,
+            },
+            {
+              id: 4,
+              question: "What does the '%' operator do?",
+              options: ["Multiplication", "Division", "Modulo (remainder)", "Exponentiation"],
+              correctAnswer: 2,
+            },
+            {
+              id: 5,
+              question: "Which logical operator represents 'OR'?",
+              options: ["&&", "||", "!", "&"],
+              correctAnswer: 1,
+            },
+          ],
+        },
+      },
+      {
+        id: 3,
+        title: "Control Flow: Conditional Statements and Loops",
+        videoUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4", // Placeholder video URL
+        textContent: `
+          <h2>Control Flow</h2>
+          <p>Control flow statements in Java determine the order in which instructions are executed. They allow you to make decisions and repeat blocks of code.</p>
+
+          <h3>Conditional Statements</h3>
+          <p>Conditional statements execute a block of code only if a certain condition is met.</p>
+
+          <h4><code>if</code> statement</h4>
+          <p>Executes a block of code if a condition is true.</p>
+          <pre><code class="language-java">if (condition) {
+    // code to execute if condition is true
+}</code></pre>
+
+          <h4><code>if-else</code> statement</h4>
+          <p>Executes one block if the condition is true and another if it's false.</p>
+          <pre><code class="language-java">if (condition) {
+    // code to execute if condition is true
+} else {
+    // code to execute if condition is false
+}</code></pre>
+
+          <h4><code>if-else if-else</code> statement</h4>
+          <p>Allows for multiple conditions to be checked.</p>
+          <pre><code class="language-java">if (condition1) {
+    // code for condition1
+} else if (condition2) {
+    // code for condition2
+} else {
+    // code if none of the above conditions are met
+}</code></pre>
+
+          <h4><code>switch</code> statement</h4>
+          <p>Provides an alternative to multiple <code>if-else if</code> statements when checking a single variable against multiple values.</p>
+          <pre><code class="language-java">switch (expression) {
+    case value1:
+        // code for value1
+        break;
+    case value2:
+        // code for value2
+        break;
+    default:
+        // code if no case matches
+}</code></pre>
+
+          <h3>Loops</h3>
+          <p>Loops allow you to execute a block of code repeatedly.</p>
+
+          <h4><code>for</code> loop</h4>
+          <p>Used when you know the number of iterations beforehand.</p>
+          <pre><code class="language-java">for (initialization; condition; increment/decrement) {
+    // code to repeat
+}</code></pre>
+
+          <h4><code>while</code> loop</h4>
+          <p>Executes a block of code as long as a condition is true.</p>
+          <pre><code class="language-java">while (condition) {
+    // code to repeat
+}</code></pre>
+
+          <h4><code>do-while</code> loop</h4>
+          <p>Similar to a <code>while</code> loop, but the code block is executed at least once before the condition is checked.</p>
+          <pre><code class="language-java">do {
+    // code to repeat
+} while (condition);</code></pre>
+        `,
+        quiz: {
+          title: "Control Flow Quiz",
+          questions: [
+            {
+              id: 1,
+              question: "Which statement is used to execute code only if a condition is true?",
+              options: ["loop", "switch", "if", "while"],
+              correctAnswer: 2,
+            },
+            {
+              id: 2,
+              question: "Which loop is guaranteed to execute its block at least once?",
+              options: ["for loop", "while loop", "do-while loop", "for-each loop"],
+              correctAnswer: 2,
+            },
+            {
+              id: 3,
+              question: "Which statement is an alternative to multiple if-else if statements?",
+              options: ["for", "while", "switch", "do-while"],
+              correctAnswer: 2,
+            },
+            {
+              id: 4,
+              question: "What keyword is used to exit a switch case?",
+              options: ["exit", "return", "break", "continue"],
+              correctAnswer: 2,
+            },
+            {
+              id: 5,
+              question: "When would you typically use a for loop?",
+              options: ["When the number of iterations is unknown", "When the number of iterations is known", "When you need to execute the code at least once", "To make a decision"],
+              correctAnswer: 1,
+            },
+          ],
+        },
+      },
+      {
+        id: 4,
+        title: "Object-Oriented Programming (OOP) Concepts",
+        videoUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4", // Placeholder video URL
+        textContent: `
+          <h2>Object-Oriented Programming</h2>
+          <p>Java is a strongly object-oriented language. OOP is a programming paradigm based on the concept of "objects", which can contain data and code: data in the form of fields (often known as attributes or properties), and code in the form of procedures (often known as methods).</p>
+
+          <h3>Key OOP Concepts</h3>
+
+          <h4>1. Classes and Objects</h4>
+          <p>A <strong>Class</strong> is a blueprint or template for creating objects. An <strong>Object</strong> is an instance of a class.</p>
+          <pre><code class="language-java">// Class definition
+class Car {
+    // Attributes
+    String model;
+    int year;
+
+    // Method
+    void startEngine() {
+        System.out.println("Engine starting...");
+    }
+}
+
+// Creating an object
+Car myCar = new Car();
+myCar.model = "Sedan";
+myCar.year = 2023;
+myCar.startEngine();</code></pre>
+
+          <h4>2. Encapsulation</h4>
+          <p>Bundling data (attributes) and methods that operate on the data into a single unit (class). It also restricts direct access to some components of an object, which can be controlled by access specifiers (<code>public</code>, <code>private</code>, <code>protected</code>).</p>
+          <pre><code class="language-java">class Person {
+    private String name; // private attribute
+
+    // Public getter method
+    public String getName() {
+        return name;
+    }
+
+    // Public setter method
+    public void setName(String name) {
+        this.name = name;
+    }
+}</code></pre>
+
+          <h4>3. Inheritance</h4>
+          <p>A mechanism where one class (subclass or derived class) inherits the properties and behaviors of another class (superclass or base class). This promotes code reusability.</p>
+          <pre><code class="language-java">class Animal {
+    void eat() {
+        System.out.println("This animal eats food.");
+    }
+}
+
+class Dog extends Animal { // Dog inherits from Animal
+    void bark() {
+        System.out.println("Woof!");
+    }
+}</code></pre>
+
+          <h4>4. Polymorphism</h4>
+          <p>The ability of an object to take on many forms. It allows you to perform a single action in different ways. Polymorphism in Java is achieved through method overloading (same method name, different parameters) and method overriding (same method name and parameters in superclass and subclass).</p>
+          <pre><code class="language-java">class Shape {
+    void draw() {
+        System.out.println("Drawing a shape.");
+    }
+}
+
+class Circle extends Shape {
+    @Override // Method overriding
+    void draw() {
+        System.out.println("Drawing a circle.");
+    }
+}</code></pre>
+
+          <h4>5. Abstraction</h4>
+          <p>Hiding the complex implementation details and showing only the essential features of an object. Achieved using abstract classes and interfaces.</p>
+          <pre><code class="language-java">// Abstract class
+abstract class Vehicle {
+    abstract void engine(); // Abstract method
+
+    void honk() {
+        System.out.println("Beep beep!");
+    }
+}
+
+class Car extends Vehicle {
+    @Override
+    void engine() {
+        System.out.println("Car engine starts.");
+    }
+}</code></pre>
+        `,
+        quiz: {
+          title: "OOP Concepts Quiz",
+          questions: [
+            {
+              id: 1,
+              question: "What is a blueprint for creating objects?",
+              options: ["Object", "Method", "Class", "Attribute"],
+              correctAnswer: 2,
+            },
+            {
+              id: 2,
+              question: "Which OOP concept involves bundling data and methods together?",
+              options: ["Inheritance", "Polymorphism", "Abstraction", "Encapsulation"],
+              correctAnswer: 3,
+            },
+            {
+              id: 3,
+              question: "What allows a subclass to inherit properties from a superclass?",
+              options: ["Encapsulation", "Polymorphism", "Inheritance", "Abstraction"],
+              correctAnswer: 2,
+            },
+            {
+              id: 4,
+              question: "Which concept means 'many forms' and allows a single action in different ways?",
+              options: ["Abstraction", "Inheritance", "Encapsulation", "Polymorphism"],
+              correctAnswer: 3,
+            },
+            {
+              id: 5,
+              question: "What is the purpose of abstraction?",
+              options: [
+                "To bundle data and methods",
+                "To hide implementation details and show essential features",
+                "To inherit properties from a superclass",
+                "To allow objects to take on many forms",
+              ],
+              correctAnswer: 1,
+            },
+          ],
+        },
+      },
+      {
+        id: 5,
+        title: "Arrays and Collections",
+        videoUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4", // Placeholder video URL
+        textContent: `
+          <h2>Arrays and Collections</h2>
+          <p>Arrays and Collections are used to store and manipulate groups of related data in Java.</p>
+
+          <h3>Arrays</h3>
+          <p>An array is a container object that holds a fixed number of values of a single type. The length of an array is established when the array is created.</p>
+          <pre><code class="language-java">// Declaring an array of integers
+int[] numbers;
+
+// Initializing an array with a fixed size
+numbers = new int[5];
+
+// Declaring and initializing with values
+String[] names = {"Alice", "Bob", "Charlie"};
+
+// Accessing array elements (using index)
+String firstPerson = names[0]; // "Alice"
+
+// Modifying array elements
+numbers[0] = 10;</code></pre>
+
+          <h3>Java Collections Framework</h3>
+          <p>The Java Collections Framework provides a unified architecture for representing and manipulating collections, allowing them to be manipulated independently of the details of their representation. It includes interfaces and classes for various collection types.</p>
+
+          <h4>Key Interfaces</h4>
+          <ul>
+            <li><code>Collection</code>: The root interface of the collection hierarchy.</li>
+            <li><code>List</code>: Ordered collection (sequence). Allows duplicate elements. (e.g., <code>ArrayList</code>, <code>LinkedList</code>)</li>
+            <li><code>Set</code>: Collection that cannot contain duplicate elements. (e.g., <code>HashSet</code>, <code>TreeSet</code>)</li>
+            <li><code>Map</code>: Object that maps keys to values. Keys are unique. (e.g., <code>HashMap</code>, <code>TreeMap</code>)</li>
+          </ul>
+
+          <h4>Commonly Used Classes</h4>
+          <ul>
+            <li><code>ArrayList</code>: Resizable array implementation of the List interface.</li>
+            <li><code>LinkedList</code>: Doubly-linked list implementation of the List interface.</li>
+            <li><code>HashSet</code>: Hash table implementation of the Set interface.</li>
+            <li><code>HashMap</code>: Hash table implementation of the Map interface.</li>
+          </ul>
+
+          <h3>Working with Collections</h3>
+          <pre><code class="language-java">import java.util.ArrayList;
+import java.util.List;
+
+public class CollectionsExample {
+    public static void main(String[] args) {
+        // Creating an ArrayList
+        List&lt;String&gt; fruits = new ArrayList&lt;&gt;();
+
+        // Adding elements
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Orange");
+
+        // Accessing elements
+        String firstFruit = fruits.get(0); // "Apple"
+
+        // Iterating through a list
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        }
+    }
+}</code></pre>
+        `,
+        quiz: {
+          title: "Arrays and Collections Quiz",
+          questions: [
+            {
+              id: 1,
+              question: "What is the primary characteristic of a Java array?",
+              options: ["Its size can change dynamically", "It holds elements of different data types", "It holds a fixed number of values of a single type", "It can only store primitive data types"],
+              correctAnswer: 2,
+            },
+            {
+              id: 2,
+              question: "Which interface represents an ordered collection that allows duplicate elements?",
+              options: ["Set", "Map", "List", "Collection"],
+              correctAnswer: 2,
+            },
+            {
+              id: 3,
+              question: "Which of these is a commonly used implementation of the List interface?",
+              options: ["HashSet", "HashMap", "ArrayList", "TreeMap"],
+              correctAnswer: 2,
+            },
+            {
+              id: 4,
+              question: "In a Map, what is used to access values?",
+              options: ["Index", "Value", "Key", "Order"],
+              correctAnswer: 2,
+            },
+            {
+              id: 5,
+              question: "Which interface ensures that a collection does not contain duplicate elements?",
+              options: ["List", "Set", "Map", "Collection"],
+              correctAnswer: 1,
+            },
+          ],
+        },
+      },
+    ],
+  }
 ]
