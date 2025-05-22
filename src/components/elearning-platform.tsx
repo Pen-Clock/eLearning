@@ -28,6 +28,12 @@ export default function ElearningPlatform({ course }: { course: any }) {
     setQuizAttempted((prev) => ({ ...prev, [moduleId]: true }))
   }
 
+  const handleRetakeQuiz = (moduleId: number) => {
+    setQuizAttempted((prev) => ({ ...prev, [moduleId]: false }));
+    // Optionally, you might also want to reset the score for the module
+    // setQuizScore((prev) => ({ ...prev, [moduleId]: 0 }));
+};
+
   const calculateOverallProgress = () => {
     const totalModules = course.modules.length
     const completedModules = Object.keys(quizAttempted).length
@@ -98,6 +104,7 @@ export default function ElearningPlatform({ course }: { course: any }) {
               onQuizComplete={handleQuizComplete}
               attempted={quizAttempted[currentModule.id] || false}
               score={quizScore[currentModule.id] || 0}
+              onRetakeQuiz={handleRetakeQuiz}
             />
           </CardContent>
           {quizAttempted[currentModule.id] && (

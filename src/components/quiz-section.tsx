@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react" // Import useEffect here
 import { Button } from "~/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { Label } from "~/components/ui/label"
@@ -23,16 +23,25 @@ interface QuizSectionProps {
   quiz: Quiz
   moduleId: number
   onQuizComplete: (moduleId: number, score: number) => void
-  attempted: boolean
+  attempted: boolean // This prop now controls whether the 'completed' state is shown
   score: number
+  onRetakeQuiz: (moduleId: number) => void; // New prop
 }
 
-export default function QuizSection({ quiz, moduleId, onQuizComplete, attempted, score }: QuizSectionProps) {
+export default function QuizSection({ quiz, moduleId, onQuizComplete, attempted, score, onRetakeQuiz }: QuizSectionProps) {
   const [answers, setAnswers] = useState<Record<number, number>>({})
   const [submitted, setSubmitted] = useState(false)
   const [currentScore, setCurrentScore] = useState(0)
 
-  // If already attempted, show results
+  // Effect to reset internal state when the module changes or a retake is initiated by the parent
+  // This handles the case where you switch modules or the parent tells us to retake
+  useEffect(() => { // Corrected: removed React.
+      setAnswers({});
+      setSubmitted(false);
+      setCurrentScore(0);
+  }, [moduleId, attempted]); // Reset when module changes or 'attempted' becomes false
+
+  // If already attempted (controlled by the parent's state), show results
   if (attempted) {
     return (
       <div className="space-y-4">
@@ -46,9 +55,12 @@ export default function QuizSection({ quiz, moduleId, onQuizComplete, attempted,
         <Button
           variant="outline"
           onClick={() => {
+            // Reset internal state (already done by the effect, but good to keep for clarity)
             setAnswers({})
             setSubmitted(false)
             setCurrentScore(0)
+            // Inform the parent to allow a retake
+            onRetakeQuiz(moduleId);
           }}
         >
           Retake Quiz
@@ -57,6 +69,7 @@ export default function QuizSection({ quiz, moduleId, onQuizComplete, attempted,
     )
   }
 
+  // ... (rest of the component code remains the same)
   const handleAnswerChange = (questionId: number, answerIndex: number) => {
     setAnswers((prev) => ({
       ...prev,
@@ -80,6 +93,7 @@ export default function QuizSection({ quiz, moduleId, onQuizComplete, attempted,
   }
 
   const allQuestionsAnswered = quiz.questions.every((q) => answers[q.id] !== undefined)
+
 
   return (
     <div className="space-y-6">
