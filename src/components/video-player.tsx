@@ -83,17 +83,20 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
     }
   };
 
-  const handleTimeChange = (value: number[]) => {
-    if (isYouTube) {
-       console.warn("Time scrubbing for YouTube requires Iframe Player API.");
-      return;
-    }
-    const video = videoRef.current;
-    if (!video) return;
+const handleTimeChange = (value: number[]) => {
+  if (isYouTube) {
+    console.warn("Time scrubbing for YouTube requires Iframe Player API.");
+    return;
+  }
+  const video = videoRef.current;
+  if (!video || !value.length) return;
 
-    video.currentTime = value[0];
-    setCurrentTime(value[0]);
-  };
+  const newTime = value[0];
+  if (typeof newTime === 'number') {
+    video.currentTime = newTime;
+    setCurrentTime(newTime);
+  }
+};
 
   const toggleMute = () => {
     if (isYouTube) {
@@ -110,21 +113,29 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
     if (video.muted) setVolume(0); // Reflect muted state in volume slider
   };
 
-  const handleVolumeChange = (value: number[]) => {
-    if (isYouTube) {
-         console.warn("Volume control for YouTube requires Iframe Player API.");
-         setVolume(value[0]); // Update state for the slider
-         setIsMuted(value[0] === 0); // Reflect volume change in mute state
-         // You'd use player.setVolume(value[0] * 100) with the API
-         return;
-      }
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.volume = value[0];
-    setVolume(value[0]);
-    setIsMuted(value[0] === 0);
+const handleVolumeChange = (value: number[]) => {
+  if (isYouTube) {
+    console.warn("Volume control for YouTube requires Iframe Player API.");
+    if (!value.length) return;
+    
+    const newVolume = value[0];
+    if (typeof newVolume === 'number') {
+      setVolume(newVolume);
+      setIsMuted(newVolume === 0);
+    }
+    return;
   }
+
+  const video = videoRef.current;
+  if (!video || !value.length) return;
+
+  const newVolume = value[0];
+  if (typeof newVolume === 'number') {
+    video.volume = newVolume;
+    setVolume(newVolume);
+    setIsMuted(newVolume === 0);
+  }
+};
 
   const formatTime = (time: number) => {
     if (isNaN(time) || !isFinite(time)) return "0:00"; // Handle NaN or Infinity duration

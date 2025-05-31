@@ -6,6 +6,9 @@ import { cn } from "~/lib/utils"
 interface Module {
   id: number
   title: string
+  quiz?: {
+    questions: Array<any> // or a more specific type for your questions
+  }
 }
 
 interface CourseNavigationProps {
@@ -46,7 +49,11 @@ export default function CourseNavigation({
             <span>{module.title}</span>
             {isCompleted && (
               <span className="text-xs opacity-80">
-                {Math.round((quizScore[module.id] / modules[index].quiz.questions.length) * 100)}%
+                {Math.round(
+                  ((quizScore[module.id] ?? 0) / 
+                    (module.quiz?.questions?.length ?? 1)) * 100
+                )}%
+
               </span>
             )}
           </button>
