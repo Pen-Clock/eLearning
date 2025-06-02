@@ -11,6 +11,8 @@ import TextContent from "./text-content"
 import QuizSection from "./quiz-section"
 import CourseNavigation from "./course-navigation"
 
+
+
 export default function ElearningPlatform({ course }: { course: any }) {
   const [currentModuleIndex, setCurrentModuleIndex] = useState(0)
   const [contentType, setContentType] = useState<"video" | "text">("video")

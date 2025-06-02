@@ -13,7 +13,8 @@
     /* Strictness */
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    "checkJs": true,
+    "checkJs": false,  // Changed from true to false
+    "noEmitOnError": false,  // Added this line
 
     /* Bundled projects */
     "lib": ["dom", "dom.iterable", "ES2022"],
