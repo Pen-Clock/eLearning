@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image"; 
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~/components/ui/card";
@@ -18,7 +17,7 @@ export default function CourseGrid({ courses, viewType }: CourseGridProps) {
         <Link href={`/courses/${course.id}`} key={course.id} className="block group">
           <Card className="h-full overflow-hidden transition-all hover:shadow-md">
             <div className="aspect-video w-full overflow-hidden bg-muted">
-              <Image
+              <img
                 src={course.thumbnail ?? "/placeholder.svg"}
                 alt={course.title}
                 width={600}
