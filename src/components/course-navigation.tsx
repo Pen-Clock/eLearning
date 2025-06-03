@@ -1,22 +1,15 @@
-"use client"
+"use client";
 
-import { CheckCircle, Circle } from "lucide-react"
-import { cn } from "~/lib/utils"
-
-interface Module {
-  id: number
-  title: string
-  quiz?: {
-    questions: Array<any> // or a more specific type for your questions
-  }
-}
+import { CheckCircle, Circle } from "lucide-react";
+import { cn } from "~/lib/utils";
+import type { Module } from "~/types/course";
 
 interface CourseNavigationProps {
-  modules: Module[]
-  currentModuleIndex: number
-  onModuleChange: (index: number) => void
-  quizAttempted: Record<number, boolean>
-  quizScore: Record<number, number>
+  modules: Module[];
+  currentModuleIndex: number;
+  onModuleChange: (index: number) => void;
+  quizAttempted: Record<number, boolean>;
+  quizScore: Record<number, number>;
 }
 
 export default function CourseNavigation({
@@ -29,8 +22,8 @@ export default function CourseNavigation({
   return (
     <div className="flex overflow-x-auto pb-2 gap-1 scrollbar-hide">
       {modules.map((module, index) => {
-        const isCompleted = quizAttempted[module.id]
-        const isCurrent = index === currentModuleIndex
+        const isCompleted = quizAttempted[module.id];
+        const isCurrent = index === currentModuleIndex;
 
         return (
           <button
@@ -42,7 +35,7 @@ export default function CourseNavigation({
                 ? "bg-primary text-primary-foreground"
                 : isCompleted
                   ? "bg-muted hover:bg-muted/80"
-                  : "hover:bg-muted",
+                  : "hover:bg-muted"
             )}
           >
             {isCompleted ? <CheckCircle className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
@@ -53,12 +46,11 @@ export default function CourseNavigation({
                   ((quizScore[module.id] ?? 0) / 
                     (module.quiz?.questions?.length ?? 1)) * 100
                 )}%
-
               </span>
             )}
           </button>
-        )
+        );
       })}
     </div>
-  )
+  );
 }

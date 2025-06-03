@@ -1,12 +1,14 @@
-import Link from "next/link"
-import { Badge } from "~/components/ui/badge"
-import { Button } from "~/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~/components/ui/card"
-import { Progress } from "~/components/ui/progress"
+import Link from "next/link";
+import Image from "next/image"; 
+import { Badge } from "~/components/ui/badge";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~/components/ui/card";
+import { Progress } from "~/components/ui/progress";
+import type { Course } from "~/types/course";
 
 interface CourseGridProps {
-  courses: any[]
-  viewType: "all" | "continue"
+  courses: Course[];
+  viewType: "all" | "continue";
 }
 
 export default function CourseGrid({ courses, viewType }: CourseGridProps) {
@@ -16,9 +18,11 @@ export default function CourseGrid({ courses, viewType }: CourseGridProps) {
         <Link href={`/courses/${course.id}`} key={course.id} className="block group">
           <Card className="h-full overflow-hidden transition-all hover:shadow-md">
             <div className="aspect-video w-full overflow-hidden bg-muted">
-              <img
-                src={course.thumbnail || "/placeholder.svg"}
+              <Image
+                src={course.thumbnail ?? "/placeholder.svg"}
                 alt={course.title}
+                width={600}
+                height={400}
                 className="h-full w-full object-cover transition-transform group-hover:scale-105"
               />
             </div>
@@ -50,5 +54,5 @@ export default function CourseGrid({ courses, viewType }: CourseGridProps) {
         </Link>
       ))}
     </div>
-  )
+  );
 }

@@ -62,26 +62,27 @@ export default function VideoPlayer({ videoUrl }: VideoPlayerProps) {
   }, [videoUrl]);
 
 
-  const togglePlay = () => {
-    if (isYouTube) {
-      // To control YouTube playback, you'd need the YouTube Iframe Player API.
-      // For a basic embed, the user will use YouTube's built-in controls.
-      // We can still toggle our internal state to update the button icon,
-      // but it won't affect playback.
-      console.warn("Play/pause control for YouTube requires Iframe Player API.");
-      setIsPlaying(!isPlaying);
-    } else {
-      const video = videoRef.current;
-      if (!video) return;
+const togglePlay = () => {
+  if (isYouTube) {
+    console.warn("Play/pause control for YouTube requires Iframe Player API.");
+    setIsPlaying(!isPlaying);
+    return;
+  }
 
-      if (isPlaying) {
-        video.pause();
-      } else {
-        video.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
+  const video = videoRef.current;
+  if (!video) return;
+
+  if (isPlaying) {
+    video.pause();
+  } else {
+    // Only play() returns a Promise that needs to be handled
+    video.play().catch((error) => {
+      console.error("Error playing video:", error);
+      setIsPlaying(false);
+    });
+  }
+  setIsPlaying(!isPlaying);
+};
 
 const handleTimeChange = (value: number[]) => {
   if (isYouTube) {

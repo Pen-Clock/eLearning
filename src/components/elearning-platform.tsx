@@ -1,46 +1,57 @@
-"use client"
+// src/components/elearning-platform.tsx
+"use client";
 
-import { useState } from "react"
-import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs"
-import { Progress } from "~/components/ui/progress"
-import { Button } from "~/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~/components/ui/card"
-import { FileText, Video } from "lucide-react"
-import VideoPlayer from "./video-player"
-import TextContent from "./text-content"
-import QuizSection from "./quiz-section"
-import CourseNavigation from "./course-navigation"
+import { useState } from "react";
+import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { Progress } from "~/components/ui/progress";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~/components/ui/card";
+import { FileText, Video } from "lucide-react";
+import VideoPlayer from "./video-player";
+import TextContent from "./text-content";
+import QuizSection from "./quiz-section";
+import CourseNavigation from "./course-navigation";
+import type { Course, Module } from "~/types/course";
 
+interface ElearningPlatformProps {
+  course: Course;
+}
 
+export default function ElearningPlatform({ course }: ElearningPlatformProps) {
+  const [currentModuleIndex, setCurrentModuleIndex] = useState(0);
+  const [contentType, setContentType] = useState<"video" | "text">("video");
+  const [quizScore, setQuizScore] = useState<Record<number, number>>({});
+  const [quizAttempted, setQuizAttempted] = useState<Record<number, boolean>>({});
 
-export default function ElearningPlatform({ course }: { course: any }) {
-  const [currentModuleIndex, setCurrentModuleIndex] = useState(0)
-  const [contentType, setContentType] = useState<"video" | "text">("video")
-  const [quizScore, setQuizScore] = useState<Record<number, number>>({})
-  const [quizAttempted, setQuizAttempted] = useState<Record<number, boolean>>({})
+  const currentModule: Module | undefined = course.modules[currentModuleIndex];
 
-  const currentModule = course.modules[currentModuleIndex]
+  // Early return if no module is found
+  if (!currentModule) {
+    return (
+      <div className="p-4">
+        <p>No module found.</p>
+      </div>
+    );
+  }
 
   const handleModuleChange = (index: number) => {
-    setCurrentModuleIndex(index)
-  }
+    setCurrentModuleIndex(index);
+  };
 
   const handleQuizComplete = (moduleId: number, score: number) => {
-    setQuizScore((prev) => ({ ...prev, [moduleId]: score }))
-    setQuizAttempted((prev) => ({ ...prev, [moduleId]: true }))
-  }
+    setQuizScore((prev) => ({ ...prev, [moduleId]: score }));
+    setQuizAttempted((prev) => ({ ...prev, [moduleId]: true }));
+  };
 
   const handleRetakeQuiz = (moduleId: number) => {
     setQuizAttempted((prev) => ({ ...prev, [moduleId]: false }));
-    // Optionally, you might also want to reset the score for the module
-    // setQuizScore((prev) => ({ ...prev, [moduleId]: 0 }));
-};
+  };
 
   const calculateOverallProgress = () => {
-    const totalModules = course.modules.length
-    const completedModules = Object.keys(quizAttempted).length
-    return (completedModules / totalModules) * 100
-  }
+    const totalModules = course.modules.length;
+    const completedModules = Object.keys(quizAttempted).length;
+    return (completedModules / totalModules) * 100;
+  };
 
   return (
     <div>
@@ -51,7 +62,9 @@ export default function ElearningPlatform({ course }: { course: any }) {
         <div className="mt-4">
           <div className="flex items-center gap-2">
             <Progress value={calculateOverallProgress()} className="h-2" />
-            <span className="text-sm text-muted-foreground">{Math.round(calculateOverallProgress())}%</span>
+            <span className="text-sm text-muted-foreground">
+              {Math.round(calculateOverallProgress())}%
+            </span>
           </div>
         </div>
       </div>
@@ -104,8 +117,8 @@ export default function ElearningPlatform({ course }: { course: any }) {
               quiz={currentModule.quiz}
               moduleId={currentModule.id}
               onQuizComplete={handleQuizComplete}
-              attempted={quizAttempted[currentModule.id] || false}
-              score={quizScore[currentModule.id] || 0}
+              attempted={quizAttempted[currentModule.id] ?? false}
+              score={quizScore[currentModule.id] ?? 0}
               onRetakeQuiz={handleRetakeQuiz}
             />
           </CardContent>
@@ -115,12 +128,18 @@ export default function ElearningPlatform({ course }: { course: any }) {
                 <div className="flex justify-between items-center">
                   <span>Your score:</span>
                   <span className="font-bold">
-                    {quizScore[currentModule.id] || 0}/{currentModule.quiz.questions.length}(
-                    {Math.round(((quizScore[currentModule.id] || 0) / currentModule.quiz.questions.length) * 100)}%)
+                    {quizScore[currentModule.id] ?? 0}/{currentModule.quiz.questions.length} (
+                    {Math.round(
+                      ((quizScore[currentModule.id] ?? 0) / currentModule.quiz.questions.length) * 100
+                    )}
+                    %)
                   </span>
                 </div>
                 {currentModuleIndex < course.modules.length - 1 && (
-                  <Button className="w-full mt-4" onClick={() => setCurrentModuleIndex(currentModuleIndex + 1)}>
+                  <Button
+                    className="w-full mt-4"
+                    onClick={() => setCurrentModuleIndex(currentModuleIndex + 1)}
+                  >
                     Next Module
                   </Button>
                 )}
@@ -130,5 +149,5 @@ export default function ElearningPlatform({ course }: { course: any }) {
         </Card>
       </div>
     </div>
-  )
+  );
 }
