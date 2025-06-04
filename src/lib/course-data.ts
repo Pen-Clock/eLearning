@@ -8,6 +8,8 @@ export const courseData = [
     duration: "8 weeks",
     level: "Beginner",
     progress: 65,
+    price: 49.99,
+    isFree: false,
     modules: [
       {
         id: 1,
@@ -145,6 +147,8 @@ export const courseData = [
     duration: "6 weeks",
     level: "Intermediate",
     progress: 25,
+    price: 49.99,
+    isFree: false,
     modules: [
       {
         id: 1,
@@ -285,6 +289,8 @@ export const courseData = [
     duration: "10 weeks",
     level: "Intermediate",
     progress: 0,
+    price: 49.99,
+    isFree: true,
     modules: [
       {
         id: 1,
@@ -427,6 +433,8 @@ export const courseData = [
     duration: "12 weeks",
     level: "Beginner",
     progress: 0,
+    price: 49.99,
+    isFree: false,
     modules: [
       {
         id: 1,
@@ -574,6 +582,8 @@ export const courseData = [
     duration: "8 weeks",
     level: "Beginner",
     progress: 0,
+    price: 49.99,
+    isFree: false,
     modules: [
       {
         id: 1,
@@ -720,6 +730,8 @@ export const courseData = [
     duration: "14 weeks",
     level: "Intermediate",
     progress: 0,
+    price: 49.99,
+    isFree: false,
     modules: [
       {
         id: 1,
@@ -886,6 +898,8 @@ export const courseData = [
     duration: "10 weeks",
     level: "Beginner",
     progress: 0,
+    price: 49.99,
+    isFree: true,
     modules: [
       {
         id: 1,

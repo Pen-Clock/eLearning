@@ -1,3 +1,4 @@
+// src/types/course.ts
 export interface Quiz {
   title: string;
   questions: {
@@ -26,4 +27,15 @@ export interface Course {
   level: string;
   progress: number;
   modules: Module[];
+  price: number;
+  isFree: boolean;
+  isEnrolled?: boolean; // Will be set based on user enrollment
+}
+
+export interface CourseEnrollment {
+  id: number;
+  userId: string;
+  courseId: string;
+  enrolledAt: Date;
+  price: number;
 }

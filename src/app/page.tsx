@@ -1,16 +1,43 @@
+// src/app/page.tsx
+"use client";
+
 import type { Metadata } from "next"
 import Link from "next/link"
+import { useUser } from "@clerk/nextjs"
 import { Button } from "~/components/ui/button"
 import CourseGrid from "~/components/course-grid"
 import DashboardHeader from "~/components/dashboard-header"
-import { courseData } from "~/lib/course-data"
-
-export const metadata: Metadata = {
-  title: "Learning Dashboard",
-  description: "Modern e-learning platform with interactive courses and quizzes",
-}
+import { api } from "~/trpc/react"
 
 export default function Dashboard() {
+  const { user } = useUser();
+  
+  const { data: courses = [], isLoading } = api.course.getAll.useQuery({
+    userId: user?.id,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <DashboardHeader />
+        <main className="container mx-auto py-6 px-4 md:px-6">
+          <div className="animate-pulse space-y-4">
+            <div className="h-8 bg-muted rounded w-1/3"></div>
+            <div className="h-4 bg-muted rounded w-1/2"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="h-80 bg-muted rounded"></div>
+              ))}
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  const enrolledCourses = courses.filter(course => course.isEnrolled && course.progress > 0);
+  const freeCourses = courses.filter(course => course.isFree);
+
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />
@@ -28,24 +55,35 @@ export default function Dashboard() {
         </div>
 
         <div className="space-y-8">
-          <section>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-semibold tracking-tight">Continue Learning</h2>
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/in-progress">View All</Link>
-              </Button>
-            </div>
-            <CourseGrid courses={courseData.filter((course) => course.progress > 0).slice(0, 3)} viewType="continue" />
-          </section>
+          {enrolledCourses.length > 0 && (
+            <section>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-semibold tracking-tight">Continue Learning</h2>
+                <Button variant="ghost" size="sm" asChild>
+                  <Link href="/my-courses">View All</Link>
+                </Button>
+              </div>
+              <CourseGrid courses={enrolledCourses.slice(0, 3)} viewType="continue" />
+            </section>
+          )}
+
+          {freeCourses.length > 0 && (
+            <section>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-semibold tracking-tight">Free Courses</h2>
+              </div>
+              <CourseGrid courses={freeCourses} viewType="all" />
+            </section>
+          )}
 
           <section>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-semibold tracking-tight">All Courses</h2>
             </div>
-            <CourseGrid courses={courseData} viewType="all" />
+            <CourseGrid courses={courses} viewType="all" />
           </section>
         </div>
       </main>
     </div>
-  )
+  );
 }
