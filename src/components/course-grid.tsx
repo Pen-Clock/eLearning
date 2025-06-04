@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+
 import { useUser } from "@clerk/nextjs";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -40,7 +40,7 @@ export default function CourseGrid({ courses, viewType }: CourseGridProps) {
       {courses.map((course) => (
         <Card key={course.id} className="h-full overflow-hidden transition-all hover:shadow-md">
           <div className="aspect-video w-full overflow-hidden bg-muted relative">
-            <Image
+            <img
               src={course.thumbnail ?? "/placeholder.svg"}
               alt={course.title}
               width={600}

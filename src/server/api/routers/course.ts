@@ -13,12 +13,18 @@ export const courseRouter = createTRPCRouter({
       let userEnrollments: string[] = [];
       
       if (input.userId) {
-        const enrollments = await ctx.db
-          .select({ courseId: userCourseEnrollments.courseId })
-          .from(userCourseEnrollments)
-          .where(eq(userCourseEnrollments.userId, input.userId));
-        
-        userEnrollments = enrollments.map(e => e.courseId);
+        try {
+          const enrollments = await ctx.db
+            .select({ courseId: userCourseEnrollments.courseId })
+            .from(userCourseEnrollments)
+            .where(eq(userCourseEnrollments.userId, input.userId));
+          
+          userEnrollments = enrollments.map(e => e.courseId);
+        } catch (error) {
+          // If table doesn't exist or query fails, continue without enrollments
+          console.error("Failed to fetch user enrollments:", error);
+          userEnrollments = [];
+        }
       }
 
       // Add enrollment status to course data
@@ -42,18 +48,24 @@ export const courseRouter = createTRPCRouter({
       let isEnrolled = course.isFree;
 
       if (input.userId && !course.isFree) {
-        const enrollment = await ctx.db
-          .select()
-          .from(userCourseEnrollments)
-          .where(
-            and(
-              eq(userCourseEnrollments.userId, input.userId),
-              eq(userCourseEnrollments.courseId, input.id)
+        try {
+          const enrollment = await ctx.db
+            .select()
+            .from(userCourseEnrollments)
+            .where(
+              and(
+                eq(userCourseEnrollments.userId, input.userId),
+                eq(userCourseEnrollments.courseId, input.id)
+              )
             )
-          )
-          .limit(1);
-        
-        isEnrolled = enrollment.length > 0;
+            .limit(1);
+          
+          isEnrolled = enrollment.length > 0;
+        } catch (error) {
+          // If table doesn't exist, treat as not enrolled
+          console.error("Failed to check enrollment:", error);
+          isEnrolled = course.isFree;
+        }
       }
 
       return {
@@ -70,77 +82,79 @@ export const courseRouter = createTRPCRouter({
         throw new Error("Course not found");
       }
 
-      // Check if already enrolled
-      const existingEnrollment = await ctx.db
-        .select()
-        .from(userCourseEnrollments)
-        .where(
-          and(
-            eq(userCourseEnrollments.userId, ctx.auth.userId),
-            eq(userCourseEnrollments.courseId, input.courseId)
+      try {
+        // Check if already enrolled
+        const existingEnrollment = await ctx.db
+          .select()
+          .from(userCourseEnrollments)
+          .where(
+            and(
+              eq(userCourseEnrollments.userId, ctx.auth.userId),
+              eq(userCourseEnrollments.courseId, input.courseId)
+            )
           )
-        )
-        .limit(1);
+          .limit(1);
 
-      if (existingEnrollment.length > 0) {
-        throw new Error("Already enrolled in this course");
+        if (existingEnrollment.length > 0) {
+          throw new Error("Already enrolled in this course");
+        }
+
+        // Create enrollment
+        await ctx.db.insert(userCourseEnrollments).values({
+          userId: ctx.auth.userId,
+          courseId: input.courseId,
+          price: course.price,
+        });
+
+        return { success: true };
+      } catch (error) {
+        console.error("Enrollment failed:", error);
+        throw new Error("Failed to enroll in course. Please try again.");
       }
-
-      // Create enrollment
-      await ctx.db.insert(userCourseEnrollments).values({
-        userId: ctx.auth.userId,
-        courseId: input.courseId,
-        price: course.price,
-      });
-
-      return { success: true };
     }),
 
   getUserEnrollments: protectedProcedure
     .query(async ({ ctx }) => {
-      const enrollments = await ctx.db
-        .select()
-        .from(userCourseEnrollments)
-        .where(eq(userCourseEnrollments.userId, ctx.auth.userId));
+      try {
+        const enrollments = await ctx.db
+          .select()
+          .from(userCourseEnrollments)
+          .where(eq(userCourseEnrollments.userId, ctx.auth.userId));
 
-      return enrollments;
+        return enrollments;
+      } catch (error) {
+        console.error("Failed to fetch user enrollments:", error);
+        return [];
+      }
     }),
 
   // Get all enrollments (admin view)
   getAllEnrollments: protectedProcedure
     .query(async ({ ctx }) => {
-      const enrollments = await ctx.db
-        .select({
-          id: userCourseEnrollments.id,
-          userId: userCourseEnrollments.userId,
-          courseId: userCourseEnrollments.courseId,
-          enrolledAt: userCourseEnrollments.enrolledAt,
-          price: userCourseEnrollments.price,
-        })
-        .from(userCourseEnrollments)
-        .orderBy(userCourseEnrollments.enrolledAt);
+      try {
+        const enrollments = await ctx.db
+          .select({
+            id: userCourseEnrollments.id,
+            userId: userCourseEnrollments.userId,
+            courseId: userCourseEnrollments.courseId,
+            enrolledAt: userCourseEnrollments.enrolledAt,
+            price: userCourseEnrollments.price,
+          })
+          .from(userCourseEnrollments)
+          .orderBy(userCourseEnrollments.enrolledAt);
 
-      // Add course titles to the enrollments
-      return enrollments.map(enrollment => {
-        const course = courseData.find(c => c.id === enrollment.courseId);
-        return {
-          ...enrollment,
-          courseTitle: course?.title ?? 'Unknown Course',
-        };
-      });
-    }),
-
-  // Get enrollments for a specific course
-  getCourseEnrollments: protectedProcedure
-    .input(z.object({ courseId: z.string() }))
-    .query(async ({ ctx, input }) => {
-      const enrollments = await ctx.db
-        .select()
-        .from(userCourseEnrollments)
-        .where(eq(userCourseEnrollments.courseId, input.courseId))
-        .orderBy(userCourseEnrollments.enrolledAt);
-
-      return enrollments;
+        // Add course titles to the enrollments
+        return enrollments.map(enrollment => {
+          const course = courseData.find(c => c.id === enrollment.courseId);
+          return {
+            ...enrollment,
+            courseTitle: course?.title ?? 'Unknown Course',
+          };
+        });
+      } catch (error) {
+        console.error("Failed to fetch all enrollments:", error);
+        return [];
+      }
     }),
 
   // Check if specific user is enrolled in specific course
@@ -152,20 +166,28 @@ export const courseRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const userId = input.userId ?? ctx.auth.userId;
       
-      const enrollment = await ctx.db
-        .select()
-        .from(userCourseEnrollments)
-        .where(
-          and(
-            eq(userCourseEnrollments.userId, userId),
-            eq(userCourseEnrollments.courseId, input.courseId)
+      try {
+        const enrollment = await ctx.db
+          .select()
+          .from(userCourseEnrollments)
+          .where(
+            and(
+              eq(userCourseEnrollments.userId, userId),
+              eq(userCourseEnrollments.courseId, input.courseId)
+            )
           )
-        )
-        .limit(1);
+          .limit(1);
 
-      return {
-        isEnrolled: enrollment.length > 0,
-        enrollment: enrollment[0] ?? null,
-      };
+        return {
+          isEnrolled: enrollment.length > 0,
+          enrollment: enrollment[0] ?? null,
+        };
+      } catch (error) {
+        console.error("Failed to check user enrollment:", error);
+        return {
+          isEnrolled: false,
+          enrollment: null,
+        };
+      }
     }),
 });
