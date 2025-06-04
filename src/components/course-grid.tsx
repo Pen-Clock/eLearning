@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -22,7 +23,7 @@ export default function CourseGrid({ courses, viewType }: CourseGridProps) {
   
   const enrollMutation = api.course.enroll.useMutation({
     onSuccess: () => {
-      utils.course.getAll.invalidate();
+      void utils.course.getAll.invalidate();
     },
   });
 
@@ -39,7 +40,7 @@ export default function CourseGrid({ courses, viewType }: CourseGridProps) {
       {courses.map((course) => (
         <Card key={course.id} className="h-full overflow-hidden transition-all hover:shadow-md">
           <div className="aspect-video w-full overflow-hidden bg-muted relative">
-            <img
+            <Image
               src={course.thumbnail ?? "/placeholder.svg"}
               alt={course.title}
               width={600}
@@ -95,7 +96,7 @@ export default function CourseGrid({ courses, viewType }: CourseGridProps) {
             ) : (
               <Button
                 className="w-full"
-                onClick={() => handleEnroll(course.id)}
+                onClick={() => void handleEnroll(course.id)}
                 disabled={enrollMutation.isPending || !user}
               >
                 {enrollMutation.isPending 

@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
-import { courses, userCourseEnrollments } from "~/server/db/schema";
+import { userCourseEnrollments } from "~/server/db/schema";
 import { courseData } from "~/lib/course-data";
 
 export const courseRouter = createTRPCRouter({
@@ -106,7 +106,8 @@ export const courseRouter = createTRPCRouter({
       return enrollments;
     }),
 
-getAllEnrollments: protectedProcedure
+  // Get all enrollments (admin view)
+  getAllEnrollments: protectedProcedure
     .query(async ({ ctx }) => {
       const enrollments = await ctx.db
         .select({
@@ -124,7 +125,7 @@ getAllEnrollments: protectedProcedure
         const course = courseData.find(c => c.id === enrollment.courseId);
         return {
           ...enrollment,
-          courseTitle: course?.title || 'Unknown Course',
+          courseTitle: course?.title ?? 'Unknown Course',
         };
       });
     }),
@@ -149,7 +150,7 @@ getAllEnrollments: protectedProcedure
       userId: z.string().optional() 
     }))
     .query(async ({ ctx, input }) => {
-      const userId = input.userId || ctx.auth.userId;
+      const userId = input.userId ?? ctx.auth.userId;
       
       const enrollment = await ctx.db
         .select()
@@ -164,7 +165,7 @@ getAllEnrollments: protectedProcedure
 
       return {
         isEnrolled: enrollment.length > 0,
-        enrollment: enrollment[0] || null,
+        enrollment: enrollment[0] ?? null,
       };
-    }),    
+    }),
 });

@@ -4,7 +4,7 @@
 import { useUser } from "@clerk/nextjs";
 import { api } from "~/trpc/react";
 import { Badge } from "~/components/ui/badge";
-import { CheckCircle, Clock, Lock } from "lucide-react";
+import { CheckCircle, Lock } from "lucide-react";
 
 interface CourseStatusProps {
   courseId: string;

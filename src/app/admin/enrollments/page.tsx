@@ -1,31 +1,48 @@
 // src/app/admin/enrollments/page.tsx
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import DashboardHeader from "~/components/dashboard-header";
 import { api } from "~/trpc/react";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
 import { Calendar, DollarSign, Users } from "lucide-react";
 
+interface Enrollment {
+  id: number;
+  userId: string;
+  courseId: string;
+  enrolledAt: Date;
+  price: number;
+  courseTitle: string;
+}
+
+interface CourseEnrollmentData {
+  courseTitle: string;
+  enrollments: Enrollment[];
+  totalRevenue: number;
+}
+
 export default function AdminEnrollmentsPage() {
-  const { user } = useUser();
-  
   const { data: enrollments = [], isLoading } = api.course.getAllEnrollments.useQuery();
 
-  // Group enrollments by course
+  // Group enrollments by course with proper typing
   const enrollmentsByCourse = enrollments.reduce((acc, enrollment) => {
-    if (!acc[enrollment.courseId]) {
-      acc[enrollment.courseId] = {
-        courseTitle: enrollment.courseTitle,
-        enrollments: [],
-        totalRevenue: 0,
-      };
+    // Use nullish coalescing assignment operator
+    acc[enrollment.courseId] ??= {
+      courseTitle: enrollment.courseTitle,
+      enrollments: [],
+      totalRevenue: 0,
+    };
+    
+    // Store reference to the course data to avoid undefined access
+    const courseData = acc[enrollment.courseId];
+    if (courseData) {
+      courseData.enrollments.push(enrollment);
+      courseData.totalRevenue += enrollment.price;
     }
-    acc[enrollment.courseId].enrollments.push(enrollment);
-    acc[enrollment.courseId].totalRevenue += enrollment.price;
+    
     return acc;
-  }, {} as Record<string, any>);
+  }, {} as Record<string, CourseEnrollmentData>);
 
   if (isLoading) {
     return (
@@ -108,7 +125,7 @@ export default function AdminEnrollmentsPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  {data.enrollments.map((enrollment: any) => (
+                  {data.enrollments.map((enrollment: Enrollment) => (
                     <div 
                       key={enrollment.id} 
                       className="flex items-center justify-between p-2 bg-muted rounded"
@@ -133,7 +150,7 @@ export default function AdminEnrollmentsPage() {
             <CardContent className="p-8 text-center">
               <h3 className="text-lg font-semibold mb-2">No enrollments yet</h3>
               <p className="text-muted-foreground">
-                When users start enrolling in courses, they'll appear here.
+                When users start enrolling in courses, they&apos;ll appear here.
               </p>
             </CardContent>
           </Card>

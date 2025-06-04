@@ -1,6 +1,6 @@
 // src/server/db/schema.ts
 import { sql } from "drizzle-orm";
-import { index, sqliteTableCreator, text, integer, real } from "drizzle-orm/sqlite-core";
+import { index, sqliteTableCreator } from "drizzle-orm/sqlite-core";
 
 export const createTable = sqliteTableCreator((name) => `e_learning_${name}`);
 

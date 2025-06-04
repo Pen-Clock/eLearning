@@ -1,7 +1,6 @@
 // src/app/page.tsx
 "use client";
 
-import type { Metadata } from "next"
 import Link from "next/link"
 import { useUser } from "@clerk/nextjs"
 import { Button } from "~/components/ui/button"

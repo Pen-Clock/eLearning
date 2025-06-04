@@ -23,7 +23,7 @@ export default function CoursePage() {
 
   const enrollMutation = api.course.enroll.useMutation({
     onSuccess: () => {
-      utils.course.getById.invalidate()
+      void utils.course.getById.invalidate()
     },
   })
 
@@ -114,7 +114,7 @@ export default function CoursePage() {
                   <Button
                     size="lg"
                     className="w-full"
-                    onClick={handleEnroll}
+                    onClick={() => void handleEnroll()}
                     disabled={enrollMutation.isPending}
                   >
                     {enrollMutation.isPending 

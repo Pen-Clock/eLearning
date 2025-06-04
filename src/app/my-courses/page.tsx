@@ -2,6 +2,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
+import Image from "next/image";
 import DashboardHeader from "~/components/dashboard-header";
 import { api } from "~/trpc/react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
@@ -61,7 +62,7 @@ export default function MyCoursesPage() {
             <CardContent className="p-8 text-center">
               <h3 className="text-lg font-semibold mb-2">No courses yet</h3>
               <p className="text-muted-foreground mb-4">
-                You haven't enrolled in any courses yet. Start learning today!
+                You haven&apos;t enrolled in any courses yet. Start learning today!
               </p>
               <Button asChild>
                 <Link href="/">Browse Courses</Link>
@@ -73,9 +74,11 @@ export default function MyCoursesPage() {
             {enrolledCoursesWithDetails.map(({ course, enrolledAt, price }) => (
               <Card key={course!.id} className="overflow-hidden">
                 <div className="aspect-video w-full overflow-hidden bg-muted">
-                  <img
+                  <Image
                     src={course!.thumbnail}
                     alt={course!.title}
+                    width={600}
+                    height={400}
                     className="h-full w-full object-cover"
                   />
                 </div>
